@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Overcomplicating software: this site!</title>
+    <link rel="stylesheet" href="../assets/style.css">
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav aria-label="Main navigation">
+            <a href="../">Home</a>
+            <a href="../background">Background</a>
+            <a class="active" href="./">Blog</a>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <p class="post-meta"><time datetime="2026-09-08">September 8, 2026</time></p>
+            <h1>Overcomplicating software: this site!</h1>
+            <p class="subtitle">
+                Making software hard is really easy.
+            </p>
+
+            <p>
+                A few years ago, I built my previous personal website using Express.js (is it just Express?), a web
+                framework (library? engine?), and hosted it on a private server.
+                I looked up how to build a website and learned whatever came up first, without really knowing what I was
+                using.
+                The problem, was that what I built was completely unecessary compared to what I needed which, as you can
+                see, a few HTML files.
+                To use an ill-fitted metaphor: I was learning to surf before I knew how to swim.
+            </p>
+
+            <p>
+                This site is served by Github Pages.
+                I have one CSS file and a static HTML file for each page you see (other than pictures and figures).
+                When using Express, I was writing custom routing functions for each page that I had, even if it was a
+                static page.
+                This brings a whole host of problems, specifically at the cost of me being lost in my own codebase.
+            </p>
+
+            <p>
+                For example, what if I wanted to render some Latex?
+                Was I going to have to write routing functions for a library?
+                Will I have to edit some environment variables, will I have to setup every time I cloned the source
+                code?
+                Although displaying something as simple as
+                \[
+                \lambda_1(L)=\min_{x\in L\setminus\{0\}} \lVert x\rVert,
+                \]
+                was probably straightforward, it was too much of a headache to deal with it.
+                I chose the shortest nonzero path (pun intended), even if I probably should have taken the longer one of
+                learning web fundamentals.
+            </p>
+
+
+            <p>
+                This experience, along with later experiences of tech debt, was valuable.
+                Shortcuts can be good!
+                However, in order to take a shortcut, I need enough context to know which shortcut to take.
+            </p>
+
+        </article>
+    </main>
+
+    <footer>
+        <p><a href="./">← Blog</a></p>
+    </footer>
+</body>
+
+</html>

@@ -1,71 +1,88 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Anthony Flath — computer science, cryptography, and research.">
-  <title>Anthony Flath</title>
-  <link rel="stylesheet" href="assets/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Anthony Flath's website.">
+    <title>Anthony Flath</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
-  <header class="site-header">
-    <a class="site-name" href="./">Anthony Flath</a>
-    <nav aria-label="Main navigation">
-      <a class="active" href="./">Anthony</a>
-      <a href="blog/">Blog</a>
-    </nav>
-  </header>
+    <header class="site-header">
+        <nav aria-label="Main navigation">
+            <a class="active" href="./">Home</a>
+            <a href="background" aria-current="page">Background</a>
+            <a href="blog/">Blog</a>
+        </nav>
+    </header>
 
-  <main>
-    <h1>Anthony Flath</h1>
-    <p class="lead">
-      I am interested in cryptography, particularly lattice-based cryptography,
-      fully homomorphic encryption, and the theory and construction of cryptographic systems.
-    </p>
+    <main>
+        <div class="intro">
+            <div class="intro-text">
+                <h1>Anthony Flath</h1>
+                <p>
+                    I studied computer science at the University of Michigan where I wrote my honor's thesis on an
+                    anonymous communication system from RLWE-based FHE.
+                    Additionally, I wrote data collection software for the Radiological Health Engineering Lab.
+                </p>
+                <p>
+                    I am interested in cryptography, particularly lattice-based cryptography, fully homomorphic
+                    encryption, and the construction of cryptographic systems.
+                </p>
+            </div>
 
-    <p>
-      I studied computer science at the University of Michigan. My research has included
-      anonymous communication and lattice-based cryptography, alongside earlier software
-      for scientific data collection.
-    </p>
+            <img class="profile-photo" src="assets/profile.png" alt="Anthony Flath">
+        </div>
 
-    <p class="links">
-      <span aria-hidden="true">·</span>
-      <a href="https://github.com/anthony-s-flath">GitHub</a>
-    </p>
 
-    <section>
-      <h2>Selected work</h2>
 
-      <!-- Keep this list short. Delete anything you do not want on the site. -->
-      <article class="work-item">
-        <h3>CHARTS</h3>
-        <p>
-          Research on anonymous routing using multiparty lattice-based cryptography,
-          with an emphasis on reducing router work through aggregated recovery.
-        </p>
-      </article>
+        <ul class="links">
+                <li><a href="https://github.com/anthony-s-flath">GitHub</a></li>
+                <li><a href="mailto:anthony.s.flath@gmail.com">anthony.s.flath@gmail.com</a></li>
+        </ul>
 
-      <article class="work-item">
-        <h3>RWS-Lite</h3>
-        <p>
-          A low-cost platform for collecting weather and radiation measurements and
-          serving the resulting data locally and online.
-        </p>
-      </article>
-    </section>
+        <section>
+            <h2>Selected work</h2>
 
-    <section>
-      <h2>Writing</h2>
-      <p>
-        I use the <a href="blog/">blog</a> for notes on cryptography, mathematics,
-        research, and anything else I feel like writing about.
-      </p>
-    </section>
-  </main>
+            <article class="work-item">
+                <h3>CHARTS</h3>
+                <p>
+                    CHARTS: Compute-Efficient Anonymous Routing through Tag Sums began as my undergraduate honors thesis
+                    and subsequently developed into a full paper, which has been submitted for publication.
+                    It explores an efficient anonymous routing scheme where anonymity is guaranteed through one
+                    honest-but-curious router and, to our knowledge, achieves the fastest known performance among
+                    schemes in this setting.
+                    This work was in collaboration with <a href="https://kewucse.com">Ke Wu</a>.
+                </p>
+            </article>
 
-  <footer>
-    <p>Anthony Flath</p>
-  </footer>
+            <article class="work-item">
+                <h3>RWS-Lite</h3>
+                <p>
+                    A low-cost platform for collecting weather and radiation measurements and serving the resulting data
+                    locally and online.
+                    This project was done with the Radiological Health Engineering Lab at the University of Michigan.
+                </p>
+            </article>
+        </section>
+
+        <section>
+            <h2>Other work</h2>
+            <p>
+                I describe my experience in depth in the <a href="background/">background</a> tab.
+            </p>
+        </section>
+
+        <section>
+            <h2>The blog</h2>
+            <p>
+                I use the <a href="blog/">blog</a> for notes on cryptography, mathematics, research, and anything else I
+                feel like writing about.
+            </p>
+        </section>
+    </main>
 </body>
+
 </html>
