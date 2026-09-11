@@ -1,0 +1,4 @@
+latex/*
+!latex/template.tex
+!latex/macros.tex
+latex/todo.txt

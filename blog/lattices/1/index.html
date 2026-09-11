@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>What is a lattice?</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/blog.css">
+    <script src="/assets/js/mathjax-config.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="/background/">Background</a>
+            <a class="active" href="/blog/">Blog</a>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <p class="post-meta"><time datetime="2026-09-10">2026-09-10</time><br>
+                Last updated: <time datetime="2026-09-11">2026-09-11</time></p>
+
+            <h1>What is a lattice?</h1>
+            <p class="subtitle">
+            </p>
+
+
+
+
+
+
+
+            <p class="blog-paragraph">This blog is the first in a series (knock on wood) of explaining some concepts
+                relating to lattice-based cryptography.
+                I hope to provide an intuitive way to understand concepts, especially for someone who does not have a
+                strictly math-oriented background, including myself.
+                As we go through topics, I will provide general descriptions, explanatory figures, and formal
+                definitions.
+                I generate the graphs with my (very) rudimentary <a
+                    href="https://github.com/anthony-s-flath/latgraph">latgraph</a>.</p>
+
+            <p class="blog-paragraph">As a note, this is a rather informal introduction.
+                For a more precise, but introductory, explanation, I suggest reading <a
+                    href="https://github.com/cpeikert/LatticesInCryptography">Chris Peikert's course</a>.
+                Check out <a href="https://lattices.io">lattices.io</a> for a similarly constructed site to this.</p>
+
+            <p class="blog-paragraph">Before we start, I emphasize that I am an amateur mathematician; I am not an
+                expert.
+                I hope to update these posts with corrections, and if you notice anything, please contact me: I am using
+                this as a learning experience as a way to master the craft.
+                I highly encourage the reader to use more sources than just this website.</p>
+
+            <h2 class="blog-section">What <em>is</em> a lattice?</h2>
+
+            <p class="blog-paragraph">In an extremely generalized description, a lattice can be thought of as a grid of
+                points.
+                Although the grid may be stretched, skewed, or rotated, the points must follow some exact repeating
+                structure.
+                For example, take the lattice $\ZZ^2$, every possible point in a $2$-dimensional graph where each
+                coordinate of a point is an integer.
+                We show a subset of $\ZZ^2$ in Figure 1.</p>
+
+            <figure class="blog-figure">
+                <img src="/assets/svg/lattices/1/figure-1.svg" alt="">
+                <figcaption>
+                    <strong>Figure 1.</strong> $\ZZ^2$ displayed on a graph.
+                </figcaption>
+            </figure>
+
+            <p class="blog-paragraph">However, Figure 1 does not display the entirety of the lattice, because $\ZZ^2$
+                extends infinitely past the displayed graph.
+                This is why it is helpful to define objects more formally:
+                \[
+                \ZZ^2
+                =
+                \left\{
+                \begin{pmatrix}
+                z_1\\
+                z_2
+                \end{pmatrix}
+                :
+                z_1,z_2\in\ZZ
+                \right\},
+                \]
+                meaning the set of all points, represented as a vector from the origin, whose coordinates are integers.
+            </p>
+
+            <p class="blog-paragraph">In practice, if we wanted to describe a specific lattice, it would be infeasible
+                (perhaps impossible) to provide infinitely many points.
+                How would we actually provide numerical values to describe a specific lattice?
+                An important aspect of any lattice is that, because these points follow a repeating structure, it can be
+                described as a finite collection of vectors: a <strong>basis</strong>.</p>
+
+            <p class="blog-paragraph">More precisely, a lattice basis is an ordered collection of linearly independent
+                vectors whose integer combinations generate the lattice (meaning roughly that none of the vectors can be
+                constructed from adding other vectors).
+                In our $\ZZ^2$ example, we define our basis $B$ as
+                \[
+                b_1=
+                \begin{pmatrix}
+                1\\
+                0
+                \end{pmatrix},
+                \qquad
+                b_2=
+                \begin{pmatrix}
+                0\\
+                1
+                \end{pmatrix},
+                \qquad
+                B
+                =
+                \left(b_1, b_2\right)
+                =
+                \begin{pmatrix}
+                1 & 0\\
+                0 & 1
+                \end{pmatrix}
+                = I_2,
+                \]
+                where $I_2$ is the identity matrix.
+                The lattice $L$ generated by the basis $B$ is
+                \[
+                L(B)
+                =
+                B\ZZ^2
+                =
+                \ZZ^2.
+                \]</p>
+
+            <figure class="blog-figure">
+                <img src="/assets/svg/lattices/1/figure-2.svg" alt="">
+                <figcaption>
+                    <strong>Figure 2.</strong> Integer combinations of the basis vectors \(b_1\) and \(b_2\).
+                </figcaption>
+            </figure>
+
+            <p class="blog-paragraph">Figure 2 shows graphically how integer combinations of the two basis vectors can
+                be used to reach a particular point in the lattice.
+                The same process can be used to reach every point in the lattice.
+                An important note: a lattice can be represented by <em>many</em> different bases.
+                In fact, even $\ZZ^2$ can be generated by infinitely many different bases (more on this later).
+                Figure 3 shows a simple example of another basis that generates the same lattice $\ZZ^2$ and how basis
+                vectors can be combined to reach other points.</p>
+
+            <figure class="blog-figure">
+                <img src="/assets/svg/lattices/1/figure-3.svg" alt="">
+                <figcaption>
+                    <strong>Figure 3.</strong> $\ZZ^2$ generated from a different basis.
+                </figcaption>
+            </figure>
+
+            <p class="blog-paragraph">So far we have focused on a relatively simple lattice, but the coordinates of
+                lattice points are not restricted to integers, nor are lattices restricted to two dimensions.
+                For example, take the basis
+                \[
+                B
+                =
+                (b_1, b_2, b_3)
+                =
+                \begin{pmatrix}
+                \pi & 2\pi & e\\
+                3 & 7 & 1\\
+                1 & \sqrt{2} & \pi
+                \end{pmatrix}.
+                \]</p>
+
+            <p class="blog-paragraph">The lattice generated by this basis is
+                \[
+                L(B)
+                =
+                \left\{
+                z_1 b_1 + z_2 b_2 + z_3 b_3
+                :
+                z_1,z_2,z_3\in\ZZ
+                \right\}.
+                \]
+                This lattice is shown in
+                Figure 4.</p>
+
+            <figure class="blog-figure">
+                <img src="/assets/png/lattices/1/figure-4.png" alt="">
+                <figcaption>
+                    <strong>Figure 4.</strong> Example of a three dimension lattice (generated in Desmos).
+                </figcaption>
+            </figure>
+
+            <h2 class="blog-section">Determinant</h2>
+
+            <p class="blog-paragraph">A basis does more than generate the lattice; it also describes the ``space'' a
+                lattice takes.
+                For now, we consider the case where the basis matrix is square.
+                In two dimensions, basis vectors $b_1$ and $b_2$ form the <em>fundamental parallelogram</em>, as shown
+                in Figure 5.</p>
+
+            <figure class="blog-figure">
+                <img src="/assets/svg/lattices/1/figure-5.svg" alt="">
+                <figcaption>
+                    <strong>Figure 5.</strong> The fundamental parallelogram formed by basis vectors $b_1$ and $b_2$.
+                </figcaption>
+            </figure>
+
+            <p class="blog-paragraph">Given the basis
+                \[
+                B =
+                (b_1, b_2)
+                =
+                \begin{pmatrix}
+                a & b\\
+                c & d
+                \end{pmatrix},
+                \]
+                the determinant is
+                \[
+                \det(B) = ad - bc.
+                \]
+                The area of the fundamental parallelogram is
+                \[
+                \lvert \det(B) \rvert.
+                \]</p>
+
+            <p class="blog-paragraph">In higher dimensions, this geometric shape is the <em>fundamental
+                    parallelepiped</em>.
+                In three dimensions, the volume of this shape is
+                $\lvert\det(B)\rvert$.
+                In $n$ dimensions, $\lvert\det(B)\rvert$ similarly gives its
+                $n$-dimensional volume.
+                For a matrix $B=(a_{ij})\in\RR^{n\times n}$, the general formula is
+                \[
+                \det(B)
+                =
+                \sum_{\sigma\in S_n}
+                \operatorname{sgn}(\sigma)
+                \prod_{i=1}^{n} a_{i,\sigma(i)},
+                \]
+                where $S_n$ is the set of all permutations of the numbers $\{1,\ldots,n\}$, with a sign determined by
+                each permutation.</p>
+
+            <h2 class="blog-section">Rank</h2>
+
+            <p class="blog-paragraph">Something that we have implicitly assumed throughout this post is that a lattice
+                spans all dimensions.
+                Consider the basis $B=(b_1)$ with
+                $b_1=\left(\begin{smallmatrix}0\\1\end{smallmatrix}\right)$
+                in Figure 6.</p>
+
+            <figure class="blog-figure">
+                <img src="/assets/svg/lattices/1/figure-6.svg" alt="">
+                <figcaption>
+                    <strong>Figure 6.</strong> The span of a not-full rank lattice.
+                </figcaption>
+            </figure>
+
+            <p class="blog-paragraph">In this case, the lattice has a rank of $1$, whereas previous $\ZZ^2$ example had
+                a lattice of rank $2$.
+                This can be generalized as follows: the rank $k$ of a lattice $L \subseteq \RR^n$ is the dimension of
+                its span, i.e. if $B=(b_1,\ldots,b_k)$ is a basis of $L$, then
+                \[
+                \operatorname{rank}(L)
+                =
+                \dim\left(\Span_{\RR}(b_1,\ldots,b_k)\right)
+                =
+                k.
+                \]
+                When $k = n$, we call the lattice full rank.</p>
+
+            <p class="blog-paragraph">A consequence of this is that a basis $B$ that represents a full rank lattice $L
+                \subseteq \RR^n$ must span <em>all</em> $n$ dimensions, meaning its basis $B \in \RR^{n\times n}$ is
+                square.
+                This also means the determinant of $B$ cannot be zero, i.e. $\det(B) \neq 0$, so it is invertible.
+                For a full rank lattice,
+                \[
+                \det(L)=\lvert\det(B)\rvert.
+                \]
+                We will shortly see why this value does not depend on which basis $B$ we choose.</p>
+
+            <h3 class="blog-subsection">A bit more exact definition of span</h3>
+
+            <p class="blog-paragraph">Given vectors $b_1,\ldots,b_k$, their real span is the set of all real
+                linear combinations of those vectors:
+                \[
+                \Span_{\RR}(b_1,\ldots,b_k)
+                =
+                \left\{
+                \sum_{i=1}^{k} r_i b_i
+                :
+                r_i\in\RR
+                \right\}.
+                \]
+                The dimension of this span, denoted $\dim(\Span_{\RR}(\cdot))$, is the
+                number of linearly independent directions it contains.</p>
+
+            <h2 class="blog-section">Inverse matrices</h2>
+
+            <p class="blog-paragraph">A basis matrix $B \in \RR^{n \times n}$ of a full rank lattice does not collapse
+                any dimension, so its transformation can be reversed, i.e. $BB^{-1} = B^{-1}B = I_n$.
+                Defining the full rank basis
+                \[
+                B=
+                \begin{pmatrix}
+                a & b\\
+                c & d
+                \end{pmatrix},
+                \]
+                the inverse can be calculated as
+                \[
+                B^{-1}
+                =
+                \frac{1}{ad-bc}
+                \begin{pmatrix}
+                d & -b\\
+                -c & a
+                \end{pmatrix}.
+                \]
+                Recall that for a base of a full rank lattice, $\det(B) = ad - bc \neq 0$.</p>
+
+            <h2 class="blog-section">Unimodular Matrix</h2>
+
+            <p class="blog-paragraph">An important matrix that will come up is the unimodular matrix $U \in \GL
+                \subseteq \ZZ^{n \times n}$, where $\GL$ is the <strong>G</strong>eneral <strong>L</strong>inear group
+                of integers over $n$ dimensions.
+                This has the special property
+                $\det(U) = \pm 1$.</p>
+
+            <p class="blog-paragraph">``Who cares?'' I imagine the reader asking.
+                Well, an important consequence is that
+                \[
+                U \ZZ^n = \ZZ^n.
+                \]</p>
+
+            <p class="blog-paragraph">To see why, first consider any $y\in U\ZZ^n$.
+                By definition, $y=Uz$ for some $z\in\ZZ^n$.
+                Since both $U$ and $z$ have integer entries, $y$ must also have integer entries.
+                Therefore,
+                $U\ZZ^n\subseteq\ZZ^n$.</p>
+
+            <p class="blog-paragraph">Conversely, consider any $y\in\ZZ^n$.
+                Because $\det(U)=\pm1$, the inverse $U^{-1}$ also has integer entries (exercise: prove it!).
+                Let $z=U^{-1}y$.
+                Then $z\in\ZZ^n$, and
+                \[
+                Uz=UU^{-1}y=y.
+                \]
+                Therefore, every $y\in\ZZ^n$ is also contained in $U\ZZ^n$, giving
+                $\ZZ^n\subseteq U\ZZ^n$.
+                Thus,
+                $U\ZZ^n=\ZZ^n$.</p>
+
+            <h2 class="blog-section">Putting it all together</h2>
+
+            <p class="blog-paragraph">Let $B,B'\in\RR^{n\times k}$ be basis matrices of rank $k$ lattices in
+                $\RR^n$. Then
+                \[
+                L(B)=L(B')
+                \iff
+                B'=BU
+                \]
+                for some $U\in\GL$.
+                Notice we are not assuming full rank here.</p>
+
+            <h3 class="blog-subsection">A graph!</h3>
+
+            <p class="blog-paragraph">We can show this graphically.
+                Define $B = (b_1, b_2)$ and
+                \[
+                U=
+                \begin{pmatrix}
+                a & b\\
+                c & d
+                \end{pmatrix}
+                \in \GL.
+                \]
+                Consider
+                \[
+                B'
+                =
+                BU
+                =
+                (b_1,b_2)
+                \begin{pmatrix}
+                a & b\\
+                c & d
+                \end{pmatrix}
+                =
+                \left(
+                ab_1+cb_2,\;
+                bb_1+db_2
+                \right).
+                \]
+                See Figure 7, where we show that these two bases represent the same lattice.</p>
+
+            <figure class="blog-figure">
+                <img src="/assets/svg/lattices/1/figure-7.svg" alt="">
+                <figcaption>
+                    <strong>Figure 7.</strong> Two bases that represent the same lattice.
+                </figcaption>
+            </figure>
+
+            <h3 class="blog-subsection">A formula!</h3>
+
+            <p class="blog-paragraph">In more formulaic terms, consider a full rank lattice $L\subseteq\RR^n$ with bases
+                $B$ and $B'$:
+                \[
+                \begin{aligned}
+                L(B')
+                &= B'\ZZ^k
+                && \text{by definition},\\
+                &= BU\ZZ^k
+                && \text{since } B'=BU,\\
+                &= B\ZZ^k
+                && \text{since } U\ZZ^k=\ZZ^k,\\
+                &= L(B)
+                && \text{by definition}.
+                \end{aligned}
+                \]
+                When the lattice is full rank, $k=n$, so $B$ and $B'$ are square.
+                This additionally means that, since determinants are multiplicative,
+                \[
+                \det(BU) =\det(B)\det(U).
+                \]
+                Because $U$ is unimodular, $\det(U) = \pm 1$, so
+                \[
+                \lvert \det(BU) \rvert
+                = \lvert \det(B) \rvert.
+                \]
+                Thus, although the basis may change shape, its fundamental volume remains unchanged.</p>
+
+
+
+
+
+        </article>
+    </main>
+
+
+
+    <footer>
+        <p><a href="./">← Blog</a></p>
+    </footer>
+</body>
+
+</html>
