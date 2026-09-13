@@ -55,3 +55,18 @@
         width: 100%;
     }
 }
+
+.references {
+    margin-top: 3rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.references h3 {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.references li {
+    margin-bottom: 0.5rem;
+}

@@ -23,10 +23,10 @@
     <main>
         <article>
             <p class="post-meta"><time datetime="2026-09-10">2026-09-10</time><br>
-                Last updated: <time datetime="2026-09-12">2026-09-12</time></p>
+                Last updated: <time datetime="2026-09-13">2026-09-13</time></p>
 
             <h1>What is a lattice?</h1>
-                <p></p>
+            <p></p>
 
             <p class="blog-paragraph">This blog is the first in a series (knock on wood) of explaining some concepts relating to lattice-based cryptography.
 I hope to provide an intuitive way to understand concepts, especially for someone who does not have a strictly math-oriented background, including myself.
@@ -34,8 +34,7 @@ As we go through topics, I will provide general descriptions, explanatory figure
 I generate most of the graphs with my (very) rudimentary <a href="https://github.com/anthony-s-flath/latgraph">latgraph</a>.</p>
 
 <p class="blog-paragraph">As a note, this is a rather informal introduction.
-For a more precise, but introductory, explanation, I suggest reading <a href="https://github.com/cpeikert/LatticesInCryptography">Chris Peikert's course notes</a>.
-Check out <a href="https://lattices.io">lattices.io</a> for a similarly constructed site to this.</p>
+For a more precise, but introductory, explanation, I suggest reading <a href="https://github.com/cpeikert/LatticesInCryptography">these</a> course notes from Chris Peikert [1].</p>
 
 <p class="blog-paragraph">Before we start, I emphasize that I am an amateur mathematician; I am not an expert.
 I hope to update these posts with corrections, and if you notice anything, please contact me: I am using this as a learning experience as a way to master the craft.
@@ -50,9 +49,7 @@ We show a subset of $\ZZ^2$ in Figure 1.</p>
 
 <figure class="blog-figure">
     <img src="/assets/svg/lattices/1/figure-1.svg" alt="">
-    <figcaption>
-        <strong>Figure 1.</strong> $\ZZ^2$ displayed on a graph.
-    </figcaption>
+    <figcaption><strong>Figure 1.</strong> $\ZZ^2$ displayed on a graph.</figcaption>
 </figure>
 
 <p class="blog-paragraph">However, Figure 1 does not display the entirety of the lattice, because $\ZZ^2$ extends infinitely past the displayed graph.
@@ -112,9 +109,7 @@ B\ZZ^2
 
 <figure class="blog-figure">
     <img src="/assets/svg/lattices/1/figure-2.svg" alt="">
-    <figcaption>
-        <strong>Figure 2.</strong> Integer combinations of the basis vectors \(b_1\) and \(b_2\).
-    </figcaption>
+    <figcaption><strong>Figure 2.</strong> Integer combinations of the basis vectors \(b_1\) and \(b_2\).</figcaption>
 </figure>
 
 <p class="blog-paragraph">Figure 2 shows graphically how integer combinations of the two basis vectors can be used to reach a particular point in the lattice. 
@@ -125,9 +120,7 @@ Figure 3 shows a simple example of another basis that generates the same lattice
 
 <figure class="blog-figure">
     <img src="/assets/svg/lattices/1/figure-3.svg" alt="">
-    <figcaption>
-        <strong>Figure 3.</strong> $\ZZ^2$ generated from a different basis.
-    </figcaption>
+    <figcaption><strong>Figure 3.</strong> $\ZZ^2$ generated from a different basis.</figcaption>
 </figure>
 
 <p class="blog-paragraph">So far we have focused on a relatively simple lattice, but the coordinates of lattice points are not restricted to integers, nor are lattices restricted to two dimensions.
@@ -159,9 +152,7 @@ Figure 4.</p>
 
 <figure class="blog-figure">
     <img src="/assets/png/lattices/1/figure-4.png" alt="">
-    <figcaption>
-        <strong>Figure 4.</strong> Example of a three dimension lattice (generated in Desmos).
-    </figcaption>
+    <figcaption><strong>Figure 4.</strong> Example of a three dimension lattice (generated in Desmos).</figcaption>
 </figure>
 
 <h2 class="blog-section">Determinant</h2>
@@ -172,9 +163,7 @@ In two dimensions, basis vectors $b_1$ and $b_2$ form the <em>fundamental parall
 
 <figure class="blog-figure">
     <img src="/assets/svg/lattices/1/figure-5.svg" alt="">
-    <figcaption>
-        <strong>Figure 5.</strong> The fundamental parallelogram formed by basis vectors $b_1$ and $b_2$.
-    </figcaption>
+    <figcaption><strong>Figure 5.</strong> The fundamental parallelogram formed by basis vectors $b_1$ and $b_2$.</figcaption>
 </figure>
 
 <p class="blog-paragraph">Given the basis
@@ -220,9 +209,7 @@ in Figure 6.</p>
 
 <figure class="blog-figure">
     <img src="/assets/svg/lattices/1/figure-6.svg" alt="">
-    <figcaption>
-        <strong>Figure 6.</strong> The span of a not-full rank lattice.
-    </figcaption>
+    <figcaption><strong>Figure 6.</strong> The span of a not-full rank lattice.</figcaption>
 </figure>
 
 <p class="blog-paragraph">In this case, the lattice has a rank of $1$, whereas previous $\ZZ^2$ example had a lattice of rank $2$.
@@ -358,9 +345,7 @@ See Figure 7, where we show that these two bases represent the same lattice.</p>
 
 <figure class="blog-figure">
     <img src="/assets/svg/lattices/1/figure-7.svg" alt="">
-    <figcaption>
-        <strong>Figure 7.</strong> Two bases that represent the same lattice.
-    </figcaption>
+    <figcaption><strong>Figure 7.</strong> Two bases that represent the same lattice.</figcaption>
 </figure>
 
 <h3 class="blog-subsection">A formula!</h3>
@@ -393,7 +378,12 @@ Thus, although the basis may change shape, its fundamental volume remains unchan
         </article>
     </main>
 
-
+    <section class="references">
+    <h3>References</h3>
+    <ol>
+        <li>Chris Peikert. <em>Lattices in Cryptography</em>. 2026. <a href="https://github.com/cpeikert/LatticesInCryptography">Link</a>.</li>
+    </ol>
+</section>
 
     <footer>
         <p><a href="./">← Blog</a></p>

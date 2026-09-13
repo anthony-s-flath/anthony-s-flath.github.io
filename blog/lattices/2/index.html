@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Shortest and Closest Vector Problems</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/blog.css">
+    <script src="/assets/js/mathjax-config.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="/background/">Background</a>
+            <a class="active" href="/blog/">Blog</a>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <p class="post-meta"><time datetime="2026-09-13">2026-09-13</time><br>
+                Last updated: <time datetime="2026-09-13">2026-09-13</time></p>
+
+            <h1>The Shortest and Closest Vector Problems</h1>
+            <p>The fundamental problems of lattice-based cryptography.</p>
+
+            <p class="blog-paragraph">So far, we have only talked about properties and ways to describe lattices, but that doesn't inherently have anything to do with cryptography.
+This connection is made through hiding information by utilizing the structure of lattices.
+In other words, lattice-based cryptography relies on lattice <em>problems</em>, such as the shortest vector problem (SVP).
+SVP essentially asks questions surrounding finding the shortest vectors of a lattice given a basis.</p>
+
+<p class="blog-paragraph">Recall that there are an infinite number of bases that generate the same lattice.
+In previous blogs, we have given relatively "simple" bases, but that is not always the case.
+For instance, consider the basis
+\[
+B :=
+\begin{pmatrix}
+3\sqrt{3898}
+&
+-5382\sqrt{\frac{2}{1949}}
+&
+\frac{31195}{\sqrt{3898}}
+&
+\frac{15857}{3}\sqrt{\frac{2}{1949}}
+\\
+0
+&
+\sqrt{\frac{682378}{1949}}
+&
+-110727\sqrt{\frac{2}{664977361}}
+&
+\frac{676011}{\sqrt{1329954722}}
+\\
+0
+&
+0
+&
+\sqrt{\frac{64221}{682378}}
+&
+\frac{67240}{3}\sqrt{\frac{2}{21911498769}}
+\\
+0
+&
+0
+&
+0
+&
+\frac{1}{3\sqrt{128442}}
+\end{pmatrix},
+\]
+a basis is borrowed from [1].
+How would we interpret this?
+What is the shortest vector in the lattice formed by this basis?
+Since this is not immediately obvious (to a human, but computationally this is extremely weak and not secure), this is a bit more difficult than the bases we were previously using.</p>
+
+<h2 class="blog-section">Minimum Distance</h2>
+
+<p class="blog-paragraph">We need to collect some more lattice ``tools'' to analyze and understand SVP, especially what it means to have a shortest vector.
+We discuss some linear algebra machinery such as the <em>Euclidean norm</em>, sometimes denoted as the $\ell_2$ norm.
+More specifically, for some vector $x = (x_1, \ldots, x_n) \in \RR^n$, the $\ell_2$ norm is
+\[
+\norm{x}_2 = (x_1^2 + \ldots + x_n^2)^{1/2},
+\]
+essentially the ordinary geometric length from the origin to $x$.
+Sometimes other norms will be used too:
+\[
+\norm{x}_p = (\lvert x_1\rvert^p + \ldots + \lvert x_n \rvert^p)^{1/p}
+\]
+for $p \geq 1$, but this is not as common.
+Assume we are using the Euclidean norm unless stated otherwise.</p>
+
+<p class="blog-paragraph">The <em>minimum distance</em> of a lattice $L$ is defined as
+\[
+\lambda_1(L)
+:=
+\min_{v \in L \setminus \{0\}} \lVert v \rVert
+=
+\min_{x,y \in L}
+\lVert x-y \rVert
+\]
+where $x \neq y$.
+In non-notation terms, it is the minimum non-zero norm of a vector within a lattice, which can be generalized to distinct vectors.
+Figure two shows how this works on a two-dimensional graph.</p>
+
+<figure class="blog-figure">
+    <img src="/assets/svg/lattices/2/figure-1.svg" alt="">
+    <figcaption><strong>Figure 1.</strong> One vector with the minimum distance in two dimensions.</figcaption>
+</figure>
+
+<h2 class="blog-section">SVP</h2>
+
+<p class="blog-paragraph">Let's define an approximate version of SVP, which can also be used for an exact version.
+The $\gamma$-approximate SVP, where $\gamma \geq 1$, is defined in three variants.
+This language is largely borrowed from [2], where we (somewhat) grossly simplify.</p>
+
+<h3 class="blog-subsection">Decision</h3>
+
+<p class="blog-paragraph">Decision ($\mathsf{GapSVP}_\gamma$) asks, given a lattice basis $B$ and a real $d > 0$, to distinguish between 
+\[
+\lambda_1 (L(B)) \leq d \text{ and } \lambda_1 (L(B)) > \gamma \cdot d
+\]
+The exact version $\mathsf{GapSVP}$ is when $\gamma = 1$.
+This asks us to tell whether $d$ is greater than or equal to the minimum distance, or (approximately) less than the minimum distance.
+Figure 2 shows how the problem looks on a number line.</p>
+
+<figure class="blog-figure">
+    <img src="/assets/svg/lattices/2/figure-2.svg" alt="">
+    <figcaption><strong>Figure 2.</strong> $\mathsf{GapSVP}_\gamma$ on a one-dimensional number line.</figcaption>
+</figure>
+
+<h3 class="blog-subsection">Estimation</h3>
+
+<p class="blog-paragraph">Estimation ($\mathsf{EstSVP}_\gamma$) asks, given a lattice basis $B$, to compute $\lambda_1 (L(B))$ up to a $\gamma$ factor, meaning in the range 
+\[
+[\lambda_1 (L(B)),\ \gamma \cdot \lambda_1 (L(B))].
+\]
+The exact version $\mathsf{EstSVP}$ asks us to calculate $\lambda_1 (L(B))$.
+This is asking us to calculate the (range of the) minimum distance.</p>
+
+<h3 class="blog-subsection">Search</h3>
+
+<p class="blog-paragraph">Search ($\mathsf{SVP}_\gamma$) asks, given a lattice basis $B$, to find a nonzero $v \in L(B)$ such that 
+\[
+\norm{v} \leq \gamma \cdot \lambda_1 (L(B)).
+\]
+The exact version $\mathsf{SVP}$ asks us to calculate $v$ such that $\norm{v} = \lambda_1(L(B))$.
+Essentially, it asks us to calculate the vector with the (approximate) minimum distance.</p>
+
+<h3 class="blog-subsection">Discussion on hardness</h3>
+
+<p class="blog-paragraph">While we will talk a bit more formally about hardness in a future post, it might be helpful to contextualize the differences between the problems.
+For now, it suffices to say that if you can solve the search problem, you can solve the other two problems.
+An intuitive way to think of this is that if you can calculate the shortest vector, you can compute $\lambda_1(L(B))$ (or the approximate version).
+Thus, you can solve the decision problem.</p>
+
+<p class="blog-paragraph">There are a few algorithms, historic and contemporary, that are common when speaking about calculating SVP.
+One example is the LLL algorithm [3], which approximates a short nonzero lattice vector.
+Additionally, a randomized sieving technique [4] solves SVP in $2^{O(n)}$ time and space. 
+The contemporary discrete-Gaussian-sampling algorithm [5] solves it in $2^{n+o(n)}$ time and space.
+Note that the solving algorithms (not inherently LLL) are all exponential in $n$, meaning that there is no known polynomial or efficient algorithm.</p>
+
+<h2 class="blog-section">CVP</h2>
+
+<p class="blog-paragraph">The Closest Vector Problem (CVP) is closely related to SVP.
+Rather than finding a shortest nonzero vector in a lattice, we are given some target $t \in \mathbb{R}^n$ and consider the distance between $t$ and the closest lattice point.
+We define this distance as
+\[
+\dist{t,L(B)}
+    =
+    \min_{v \in L(B)} \norm{t-v}.
+\]</p>
+
+<p class="blog-paragraph">The decision, estimation, and search variants of CVP are defined similarly to their respective SVP variants, replacing $\lambda_1(L(B))$ with $\dist{t,L(B)}$.
+Thus, $\mathsf{GapCVP}_\gamma$ asks whether the target is within some distance $d$ of the lattice or farther than $\gamma d$.
+$\mathsf{EstCVP}_\gamma$ approximates $\dist{t,L(B)}$.
+$\mathsf{CVP}_\gamma$ finds a lattice vector whose distance from $t$ is within a factor $\gamma$ of the minimum possible distance, i.e., $\norm{t-v} \leq \gamma \dist{t,L(B)}$.</p>
+
+<p class="blog-paragraph">Intuitively, SVP asks us to find the shortest vector relative to the origin, while CVP lets us choose an arbitrary target and asks for the closest lattice point to that target.
+Although they are related, they are not the same problem.
+Figure 3 displays CVP graphically.</p>
+
+<figure class="blog-figure">
+    <img src="/assets/svg/lattices/2/figure-3.svg" alt="">
+    <figcaption><strong>Figure 3.</strong> An example of the distance between a point $t$ and a point in $L$.</figcaption>
+</figure>
+
+<h3 class="blog-subsection">Discussion on hardness</h3>
+
+<p class="blog-paragraph">As with SVP, the search version gives us enough information to solve the calculation and decision versions.
+Additionally, SVP can be solved using a CVP ``solver'' [6], so CVP is at least as hard as SVP for $\gamma \geq 1$.</p>
+
+<p class="blog-paragraph">Exact CVP is known to be hard [7, 8], and there is no known polynomial-time algorithm for solving it.
+This does <em>not</em> imply that SVP is hard.
+One important exact algorithm is the MV Voronoi-cell algorithm [9], which solves CVP deterministically in $O(2^{2n})$ time and $O(2^n)$ space.</p>
+        </article>
+    </main>
+
+    <section class="references">
+    <h3>References</h3>
+    <ol>
+        <li>Bennett, Huck, Ganju, Atul, Peetathawatchai, Pura, Stephens-Davidowitz, Noah. <em>Just How Hard Are Rotations of $\ZZ_n$? Algorithms and Cryptography with the Simplest Lattice</em>. Advances in Cryptology – EUROCRYPT 2023: 42nd Annual International Conference on the Theory and Applications of Cryptographic Techniques, Lyon, France, April 23-27, 2023, Proceedings, Part V. 2023. <a href="https://doi.org/10.1007/978-3-031-30589-4_9">10.1007/978-3-031-30589-4_9</a>.</li>
+        <li>Chris Peikert. <em>Lattices in Cryptography</em>. 2026. <a href="https://github.com/cpeikert/LatticesInCryptography">Link</a>.</li>
+        <li>Lenstra, Arjen K., Lenstra, Hendrik W., Jr., Lov\&#x27;asz, L\&#x27;aszl\&#x27;o. <em>Factoring Polynomials with Rational Coefficients</em>. Mathematische Annalen. 1982. <a href="https://doi.org/10.1007/BF01457454">10.1007/BF01457454</a>.</li>
+        <li>Ajtai, Mikl\&#x27;os, Kumar, Ravi, Sivakumar, D.. <em>A sieve algorithm for the shortest lattice vector problem</em>. Proceedings of the Thirty-Third Annual ACM Symposium on Theory of Computing. 2001. <a href="https://doi.org/10.1145/380752.380857">10.1145/380752.380857</a>.</li>
+        <li>Aggarwal, Divesh, Dadush, Daniel, Regev, Oded, Stephens-Davidowitz, Noah. <em>Solving the Shortest Vector Problem in $2^n$ Time Using Discrete Gaussian Sampling: Extended Abstract</em>. Proceedings of the Forty-Seventh Annual ACM Symposium on Theory of Computing. 2015. <a href="https://doi.org/10.1145/2746539.2746606">10.1145/2746539.2746606</a>.</li>
+        <li>Goldreich, O., Micciancio, D., Safra, S., Seifert, J. -P.. <em>Approximating shortest lattice vectors is not harder than approximating closest lattice vectors</em>. Inf. Process. Lett.. 1999. <a href="https://doi.org/10.1016/S0020-0190(99)00083-6">10.1016/S0020-0190(99)00083-6</a>.</li>
+        <li>Micciancio, Daniele, Goldwasser, Shafi. <em>Complexity of Lattice Problems: A Cryptographic Perspective</em>. Kluwer Academic Publishers. 2002.</li>
+        <li>van Emde-Boas, P.. <em>Another NP-complete partition problem and the complexity of computing short vectors in a lattice</em>. Department, Univ.. 1981.</li>
+        <li>Micciancio, Daniele, Voulgaris, Panagiotis. <em>A deterministic single exponential time algorithm for most lattice problems based on Voronoi cell computations</em>. Proceedings of the Forty-Second ACM Symposium on Theory of Computing. 2010. <a href="https://doi.org/10.1145/1806689.1806739">10.1145/1806689.1806739</a>.</li>
+    </ol>
+</section>
+
+    <footer>
+        <p><a href="./">← Blog</a></p>
+    </footer>
+</body>
+
+</html>

@@ -10,6 +10,7 @@ window.MathJax = {
             Span: "\\operatorname{span}",
             norm: ["\\lVert #1 \\rVert", 1],
             Norm: ["\\left\\lVert #1 \\right\\rVert", 1],
+            dist: ['\\operatorname{dist}\\left(#1\\right)', 1],
         }
     }
 };
