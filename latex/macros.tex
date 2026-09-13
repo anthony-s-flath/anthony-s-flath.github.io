@@ -4,6 +4,20 @@
 
 \usepackage[hidelinks]{hyperref}
 
+
+% Blog metadata.
+% These are read by bin/tex_to_html.py and do nothing when compiled as LaTeX.
+\newcommand{\blogtitle}[1]{}
+\newcommand{\blogsubtitle}[1]{}
+\newcommand{\written}[1]{}
+\newcommand{\updated}[1]{}
+
+% Blog-only figure.
+% #1 = image source
+% #2 = caption
+\newcommand{\blogfigure}[2]{}
+
+
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\QQ}{\mathbb{Q}}
@@ -16,7 +30,3 @@
 \newcommand{\norm}[1]{\lVert #1 \rVert}
 \newcommand{\Norm}[1]{\left\lVert #1 \right\rVert}
 
-% Blog-only figure.
-% #1 = image source
-% #2 = caption
-\newcommand{\blogfigure}[2]{}
