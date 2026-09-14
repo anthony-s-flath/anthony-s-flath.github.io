@@ -58,7 +58,7 @@
 
 .references {
     margin-top: 3rem;
-    color: #666;
+    color: var(--muted);
     font-size: 0.9rem;
 }
 
