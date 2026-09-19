@@ -8,22 +8,8 @@
 \blogtitle{What is a lattice?}
 \blogsubtitle{}
 \written{2026-09-10}
-\updated{2026-09-13}
+\updated{2026-09-19}
 
-This blog is the first in a series (knock on wood) of explaining some concepts relating to lattice-based cryptography.
-I hope to provide an intuitive way to understand concepts, especially for someone who does not have a strictly math-oriented background, including myself.
-As we go through topics, I will provide general descriptions, explanatory figures, and formal definitions.
-I generate most of the graphs with my (very) rudimentary \href{https://github.com/anthony-s-flath/latgraph}{latgraph}.
-
-As a note, this is a rather informal introduction.
-For a more precise, but introductory, explanation, I suggest reading \href{https://github.com/cpeikert/LatticesInCryptography}{these} course notes from Chris Peikert [1].
-
-Before we start, I emphasize that I am an amateur mathematician; I am not an expert.
-I hope to update these posts with corrections, and if you notice anything, please contact me: I am using this as a learning experience as a way to master the craft.
-I highly encourage the reader to use more sources than just this website.
-
-
-\section{What \emph{is} a lattice?}
 In an extremely generalized description, a lattice can be thought of as a grid of points.
 Although the grid may be stretched, skewed, or rotated, the points must follow some exact repeating structure.
 For example, take the lattice $\ZZ^2$, every possible point in a $2$-dimensional graph where each coordinate of a point is an integer.
@@ -355,15 +341,5 @@ Because $U$ is unimodular, $\det(U) = \pm 1$, so
 Thus, although the basis may change shape, its fundamental volume remains unchanged.
 
 
-
-
-\bib{
-@misc{peikert-lattices,
-    author = {Chris Peikert},
-    title = {Lattices in Cryptography},
-    year = {2026},
-    url = {https://github.com/cpeikert/LatticesInCryptography}
-}
-}
 
 \end{document}

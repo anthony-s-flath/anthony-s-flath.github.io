@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Introduction</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/blog.css">
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/mathjax-config.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a class="active" href="/blog/">Blog</a>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <p class="post-meta"><time datetime="2026-09-19">2026-09-19</time><br>
+                Last updated: <time datetime="2026-09-19">2026-09-19</time></p>
+
+            <h1>Introduction</h1>
+            <p class="subtitle">Along with some notes about these posts.</p>
+
+            <p class="blog-paragraph">This post is the first in a series (knock on wood) of explaining some concepts
+                relating to lattice-based cryptography.
+                I hope to provide an intuitive way to understand concepts, especially for someone who does not have a
+                strictly math-oriented background.
+                As we go through topics, I will provide general descriptions, explanatory figures, and formal
+                definitions.
+                I generate most of the graphs with my rudimentary library <a
+                    href="https://github.com/anthony-s-flath/latgraph">latgraph</a>.</p>
+
+            <p class="blog-paragraph">This is a rather informal introduction.
+                For a more precise, but introductory, explanation, I suggest watching <a
+                    href="https://simons.berkeley.edu/workshops/lattices-algorithms-complexity-cryptography-boot-camp/videos#simons-tabs">these</a>
+                videos from a Simons Institute bootcamp [2] and reading <a
+                    href="https://github.com/cpeikert/LatticesInCryptography">these</a> course
+                notes from Chris Peikert [1].
+            </p>
+
+            <p class="blog-paragraph">Before we start, I emphasize that I am an amateur mathematician; I am not an
+                expert.
+                I hope to update these posts with corrections, and if you notice anything, please contact me: I am using
+                this as a learning experience!
+                I highly encourage the reader to use more sources than just this website.</p>
+
+
+            <section class="references">
+                <h3>References</h3>
+                <ol>
+                    <li>Chris Peikert. <em>Lattices in Cryptography</em>. 2026. <a
+                            href="https://github.com/cpeikert/LatticesInCryptography">Link</a>.</li>
+                    <li>Simons Institute for the Theory of Computing. <em>Lattices: Algorithms, Complexity, and
+                            Cryptography Boot Camp</em>. January 21-24, 2020. <a
+                            href="https://simons.berkeley.edu/workshops/lattices-algorithms-complexity-cryptography-boot-camp">Link</a>.
+                    </li>
+                </ol>
+            </section>
+
+            <footer>
+                <p><a href="./">← Blog</a></p>
+            </footer>
+</body>
+
+</html>

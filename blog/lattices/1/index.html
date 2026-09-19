@@ -16,7 +16,6 @@
     <header class="site-header">
         <nav aria-label="Main navigation">
             <a href="/">Home</a>
-            <a href="/background/">Background</a>
             <a class="active" href="/blog/">Blog</a>
         </nav>
     </header>
@@ -24,24 +23,10 @@
     <main>
         <article>
             <p class="post-meta"><time datetime="2026-09-10">2026-09-10</time><br>
-                Last updated: <time datetime="2026-09-13">2026-09-13</time></p>
+                Last updated: <time datetime="2026-09-19">2026-09-19</time></p>
 
             <h1>What is a lattice?</h1>
-            <p></p>
-
-            <p class="blog-paragraph">This blog is the first in a series (knock on wood) of explaining some concepts relating to lattice-based cryptography.
-I hope to provide an intuitive way to understand concepts, especially for someone who does not have a strictly math-oriented background, including myself.
-As we go through topics, I will provide general descriptions, explanatory figures, and formal definitions.
-I generate most of the graphs with my (very) rudimentary <a href="https://github.com/anthony-s-flath/latgraph">latgraph</a>.</p>
-
-<p class="blog-paragraph">As a note, this is a rather informal introduction.
-For a more precise, but introductory, explanation, I suggest reading <a href="https://github.com/cpeikert/LatticesInCryptography">these</a> course notes from Chris Peikert [1].</p>
-
-<p class="blog-paragraph">Before we start, I emphasize that I am an amateur mathematician; I am not an expert.
-I hope to update these posts with corrections, and if you notice anything, please contact me: I am using this as a learning experience as a way to master the craft.
-I highly encourage the reader to use more sources than just this website.</p>
-
-<h2 class="blog-section">What <em>is</em> a lattice?</h2>
+            <p class="subtitle"></p>
 
 <p class="blog-paragraph">In an extremely generalized description, a lattice can be thought of as a grid of points.
 Although the grid may be stretched, skewed, or rotated, the points must follow some exact repeating structure.
@@ -378,12 +363,6 @@ Because $U$ is unimodular, $\det(U) = \pm 1$, so
 Thus, although the basis may change shape, its fundamental volume remains unchanged.</p>
         </article>
     </main>
-
-    <section class="references">
-    <h3>References</h3>
-    <ol>
-        <li>Chris Peikert. <em>Lattices in Cryptography</em>. 2026. <a href="https://github.com/cpeikert/LatticesInCryptography">Link</a>.</li>
-    </ol>
 </section>
 
     <footer>
